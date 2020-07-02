@@ -1,10 +1,12 @@
 <?xml version="1.0" ?>
 <launch>
   <arg name="camera" default="/camera"/>
+  <arg name="name" default="$(arg camera)"/>
+  <arg name="image" default="image_depth"/>
 
-  <node pkg="depth2cloud" type="depth2cloud_node" name="$(arg camera)_depth2cloud_node" output="screen" >
-    <remap from="depth" to="$(arg camera)/depth/image"/>		# Topic for the camera depth
-    <remap from="info" to="$(arg camera)/rgb/camera_info"/>	# Topic for the camera info
+  <node pkg="depth2cloud" type="depth2cloud_node" name="$(arg name)_depth2cloud_node" output="screen" >
+    <remap from="depth" to="$(arg camera)/$(arg image)"/>		# Topic for the camera depth
+    <remap from="info" to="$(arg camera)/camera_info"/>	# Topic for the camera info
     <remap from="cloud" to="$(arg camera)/points"/>		# Topic name for output point cloud
     <param name="range_min" value = "0.7"/>				# Min range in meters for point cloud generation
     <param name="range_max" value = "6.0"/>				# Max range in meters for point cloud generation
